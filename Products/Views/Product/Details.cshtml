@@ -1,0 +1,49 @@
+﻿@model Products.DataLayer.Product
+
+@{
+    ViewBag.Title = "Product's details";
+}
+
+<h2>Product's details</h2>
+
+<fieldset>
+    <legend>Product</legend>
+
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Image
+            </th>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(model => model.Title)</td>
+            <td>@Html.DisplayFor(model => model.Description)</td>
+            <td>@Html.DisplayFor(model => model.Price)</td>
+            <td>@Html.DisplayFor(model => model.IsActive)</td>
+            <td>@Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categories, "Id", "Title"), new { disabled = "disabled" })</td>
+            <td><img src="@Url.Content("~/Images/"+Model.ImageName)" alt="Image" width="100px;" height="100px;" /></td>
+        </tr>
+    </table>
+
+     
+</fieldset>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { name = Model.Title })
+    @Html.ActionLink("Back to List", "Index")
+</p>

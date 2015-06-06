@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Products.DataLayer.Product>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<script type="text/javascript">
+    sendName = function (name) {
+        if (name != null) {
+            $.ajax({
+                type: "POST",
+                async: true,
+                contentType: "application/json; charset=utf-8",
+                url: "/product/delete",
+                data: "{'name':'" + name + "'}",
+                success: function (result) {
+                    if (result.status === true) {
+                        window.location.href = '@Url.Action("Index")';
+                    }
+                },
+                error: function (jqXHR, error, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(error);
+                    console.log(errorThrown);
+                }
+            });
+        }
+        else {
+            alert('Error!');
+        }
+    }
+
+</script>
+
+<h2>Products</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            Actions
+        </th>
+        
+    </tr>
+
+   @foreach (var item in Model)
+   {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { name = item.Title }, new { @style = "border:none;" }) |
+            @Html.ActionLink("Details", "Details", new { name = item.Title })|
+            @*@Html.ActionLink("Delete", "Delete", "Product", new { name = item.Title }, null)*@
+            <input type="submit" id="Delete" value="Delete" onclick="sendName('@item.Title')" />
+
+        </td>
+    </tr>
+   }
+
+</table>
