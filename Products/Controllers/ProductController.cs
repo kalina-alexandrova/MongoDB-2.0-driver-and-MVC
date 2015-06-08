@@ -48,7 +48,8 @@ namespace Products.Controllers
                            image.Resize(500, ((500 * image.Height) / image.Width));
                        }
 
-                       image.Save(Path.Combine("~/Images", image.FileName));
+                       image.Save(System.IO.Path.Combine(
+                                  Server.MapPath("~/images"), image.FileName));
 
                     }
 
